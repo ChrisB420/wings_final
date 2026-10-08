@@ -24,9 +24,17 @@ const TEMPLATE_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 test("injects before </head>", () => {
   const out = injectGrokPwaHead("<html><head><title>x</title></head><body></body></html>");
   assert.match(out, /rel="manifest"/);
-  assert.match(out, /apple-touch-icon/);
+  assert.match(out, /apple-touch-icon" href="\/brand\/app-icon\.png"/);
   assert.match(out, /grok-app-builder\/extensions\.js/);
   assert.ok(out.indexOf("manifest") < out.indexOf("</head>"));
+});
+
+test("preserves an app-provided touch icon", () => {
+  const html =
+    '<html><head><link rel="apple-touch-icon" href="/brand/custom.png"></head></html>';
+  const out = injectGrokPwaHead(html);
+  assert.match(out, /href="\/brand\/custom\.png"/);
+  assert.doesNotMatch(out, /href="\/brand\/app-icon\.png"/);
 });
 
 test("injects the extensions script without a project id", () => {
@@ -477,7 +485,8 @@ test("renders the manifest with the per-app name", () => {
   const manifest = JSON.parse(renderWebManifest("wild-race.grok.me"));
   assert.equal(manifest.name, "Wild Race");
   assert.equal(manifest.short_name, "Wild Race");
-  assert.equal(manifest.icons[0].src, "/__grok/icon-180.png");
+  assert.equal(manifest.icons[0].src, "/brand/app-icon.png");
+  assert.equal(manifest.icons[1].src, "/brand/app-icon.svg");
 });
 
 // Tripwires: the deployed-app path only works if Nitro scans server/ — an
@@ -503,4 +512,3 @@ test("vite plugin bakes og identity as a virtual module", () => {
   assert.match(plugin, /virtual:grok-og-identity/);
   assert.match(plugin, /snapshotOgIdentity/);
 });
-
