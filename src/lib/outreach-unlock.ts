@@ -11,10 +11,7 @@ export const unlockOutreach = createServerFn({ method: "POST" })
     const { createHash, timingSafeEqual } = await import("node:crypto");
     const digest = (value: string) => createHash("sha256").update(value).digest();
     const expected = process.env.OUTREACH_ADMIN_KEY;
-    if (!expected) {
-      if (import.meta.env.DEV) return { ok: true };
-      return { ok: false, reason: "unconfigured" };
-    }
+    if (!expected) return { ok: false, reason: "unconfigured" };
     const valid = timingSafeEqual(digest(data.key), digest(expected));
     return valid ? { ok: true } : { ok: false, reason: "invalid" };
   });
