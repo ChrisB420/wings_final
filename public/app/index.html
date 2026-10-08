@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0c0b09">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Wings">
+<title>Wings of the Cherubim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0c0b09; --ink2:#161410; --ink3:#211e18; --line:#3a3326;
+  --parch:#ece3cd; --dim:#a79d86; --gold:#d2a94c;
+  --l1:#e5484d; --l2:#f08a3c; --l3:#f2cf4a; --l4:#58b368; --l5:#4aa3e0; --l6:#6a62d8; --l7:#b765d6;
+  --disp:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0}
+html{color-scheme:dark}
+body{background:var(--ink);color:var(--parch);font-family:var(--body);font-size:17px;line-height:1.6;min-height:100vh;-webkit-text-size-adjust:100%}
+.app{max-width:560px;margin:0 auto;padding:0 16px calc(96px + env(safe-area-inset-bottom))}
+a{color:var(--gold)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+h1,h2,h3{font-family:var(--disp);font-weight:400;line-height:1.15}
+h1{font-size:clamp(34px,10vw,46px);letter-spacing:-.01em}
+h2{font-size:28px;margin:28px 0 6px}
+h3{font-size:19px;font-weight:600}
+p.lead{color:var(--dim);max-width:46ch}
+header.top{padding:calc(20px + env(safe-area-inset-top)) 0 4px}
+header.top .name{font-family:var(--disp);font-size:16px;color:var(--gold)}
+section.page{display:none}
+section.page.on{display:block}
+
+/* menorah */
+.hero{padding:10px 0 4px;text-align:center}
+.hero h1{margin:6px 0 6px}
+.hero p.lead{margin:0 auto}
+.menorah{width:100%;max-width:420px;margin:18px auto 0;display:block;overflow:visible}
+.arm{fill:none;stroke:var(--line);stroke-width:3;stroke-linecap:round;transition:stroke .5s}
+.lamp{cursor:pointer}
+.lamp .hit{fill:transparent}
+.lamp .cup{fill:var(--ink3);stroke:var(--line);stroke-width:2;transition:stroke .4s}
+.flame{opacity:0;transition:opacity .5s, transform .5s;transform-box:fill-box;transform-origin:50% 100%;transform:scale(.4)}
+.lamp.lit .flame{opacity:1;transform:scale(1)}
+.lamp.lit .cup{stroke:currentColor}
+.lamp:focus-visible .cup{stroke:var(--gold);stroke-width:3}
+.glow{opacity:0;transition:opacity .6s}
+.lamp.lit .glow{opacity:.35}
+.whole .flame{fill:#fff6dc !important}
+.reading{min-height:118px;margin:6px 0 0;padding:14px 4px 0;text-align:center}
+.reading .t{font-family:var(--disp);font-size:22px}
+.reading .v{color:var(--gold);font-size:15px;margin:2px 0 6px;font-style:italic}
+.reading .d{color:var(--dim);max-width:44ch;margin:0 auto}
+.count{color:var(--dim);font-size:15px;text-align:center;margin-top:6px}
+
+/* cards & rows */
+.stack{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.row{background:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:14px 14px 12px}
+.row.soon{opacity:.6}
+.row .k{color:var(--gold);font-size:14px;font-style:italic}
+.row p{color:var(--dim);font-size:16px;margin:4px 0 10px}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:transparent;text-decoration:none;color:var(--parch);font-size:15px}
+.btn.pri{background:var(--gold);border-color:var(--gold);color:#1a1405;font-weight:500}
+.btn[aria-pressed=true]{border-color:var(--gold);color:var(--gold)}
+.btn.done[aria-pressed=true]{background:rgba(88,179,104,.15);border-color:var(--l4);color:#9ad8a4}
+.bar{height:6px;background:var(--ink3);border-radius:3px;overflow:hidden;margin:12px 0 4px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--l1),var(--l2),var(--l3),var(--l4),var(--l5),var(--l6),var(--l7));transition:width .5s}
+.small{font-size:14px;color:var(--dim)}
+
+/* road */
+.road{position:relative;margin:18px 0 0 8px;padding-left:26px;border-left:2px solid var(--line)}
+.stop{position:relative;padding:0 0 22px}
+.stop::before{content:"";position:absolute;left:-35px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--ink);border:2px solid var(--gold)}
+.stop:last-child::before{background:var(--gold);box-shadow:0 0 14px var(--gold)}
+.stop button{all:unset;display:block;cursor:pointer;width:100%}
+.stop .tag{font-size:14px;color:var(--gold);font-style:italic}
+.stop .ref{font-size:14px;color:var(--dim)}
+.stop .more{display:none;color:var(--parch);margin-top:6px}
+.stop.open .more{display:block}
+.stop h3:after{content:" +";color:var(--dim);font-weight:400}
+.stop.open h3:after{content:" −"}
+
+/* places */
+.places{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.place{background:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:12px;font-family:var(--disp);font-size:18px}
+.place span{display:block;font-family:var(--body);font-size:14px;color:var(--dim)}
+
+/* prayer */
+form.add{display:flex;gap:8px;margin-top:14px}
+form.add input{flex:1;min-width:0;min-height:48px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:var(--ink2);color:var(--parch);font:inherit}
+.plist{list-style:none;padding:0;margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.plist li{display:flex;align-items:center;gap:10px;background:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:6px 6px 6px 14px}
+.plist li span{flex:1;overflow-wrap:anywhere}
+.plist li.ans span{color:var(--dim);text-decoration:line-through}
+.plist button{min-height:44px;min-width:44px;background:none;border:0;color:var(--dim)}
+.empty{color:var(--dim);margin-top:16px}
+blockquote{border-left:2px solid var(--gold);padding:2px 0 2px 14px;margin:22px 0 0;color:var(--dim);font-style:italic}
+
+/* nav */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(12,11,9,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:5}
+nav.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav.tabs button{background:none;border:0;min-height:60px;font-size:13px;color:var(--dim);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+nav.tabs svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs button[aria-current=page]{color:var(--gold)}
+@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top"><div class="name">Wings of the Cherubim</div></header>
+
+  <!-- LIGHT -->
+  <section class="page on" id="p-light" aria-label="Light">
+    <div class="hero">
+      <h1>Seven lamps, one light</h1>
+      <p class="lead">Tap each lamp to light it. The seven Spirits of God, named in Isaiah 11:2, burn as one flame.</p>
+    </div>
+    <svg class="menorah" id="menorah" viewBox="0 0 320 220" role="group" aria-label="Seven-branched lampstand"></svg>
+    <div class="reading" id="reading" aria-live="polite">
+      <div class="d">Start with the center lamp, or any of the seven.</div>
+    </div>
+    <div class="count" id="count">0 of 7 lit</div>
+    <blockquote>“Not by might, nor by power, but by my Spirit, says the LORD of hosts.” <span class="small">Zechariah 4:6</span></blockquote>
+    <div class="stack">
+      <div class="row">
+        <h3>Latest insight: Elocution</h3>
+        <p>The newest scroll from the ministry, as a PDF.</p>
+        <div class="acts"><a class="btn pri" target="_blank" rel="noopener" href="https://www.wingsofthecherubim.org/scrolls/Elocution.pdf">Read the scroll</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCROLLS -->
+  <section class="page" id="p-scrolls" aria-label="Scrolls">
+    <h2>The scrolls</h2>
+    <p class="lead">Each scroll is a guided teaching. Mark the ones you have finished and save the ones you want to return to. Both stay on this device.</p>
+    <div class="bar" role="progressbar" aria-label="Scrolls read" aria-valuemin="0" aria-valuemax="5" id="bar"><i id="barfill"></i></div>
+    <div class="small" id="barlabel"></div>
+    <div class="stack" id="scrollList"></div>
+    <div class="stack">
+      <div class="row soon"><div class="k">Prophecy</div><h3>Nations in God's Plan</h3><p>Coming soon.</p></div>
+      <div class="row soon"><div class="k">Mystery</div><h3>Creation &amp; Redemption</h3><p>Coming soon.</p></div>
+      <div class="row soon"><div class="k">Vision</div><h3>Prophetic Fulfillment</h3><p>Coming soon.</p></div>
+    </div>
+    <div class="acts" style="margin-top:16px"><a class="btn" target="_blank" rel="noopener" href="https://www.wingsofthecherubim.org/library">Open the full scroll library</a></div>
+  </section>
+
+  <!-- ROAD -->
+  <section class="page" id="p-road" aria-label="The road">
+    <h2>The road to His appearing</h2>
+    <p class="lead">One unbroken line in Scripture, from the covenant to the return of Christ. Tap a stop to read it.</p>
+    <div class="road" id="road"></div>
+  </section>
+
+  <!-- PRAY -->
+  <section class="page" id="p-pray" aria-label="Pray">
+    <h2>Prayer list</h2>
+    <p class="lead">Write down what you are bringing before God. Check it off when it is answered. This list is private and saved only on this device.</p>
+    <form class="add" id="addForm">
+      <input id="prayerInput" type="text" maxlength="200" placeholder="Add a prayer" aria-label="Add a prayer" autocomplete="off">
+      <button class="btn pri" type="submit">Add</button>
+    </form>
+    <ul class="plist" id="plist"></ul>
+    <p class="empty" id="pempty">No prayers yet. Add the first one above.</p>
+    <div class="stack">
+      <div class="row">
+        <h3>Scroll-sealing prayer</h3>
+        <p>The ministry's own prayer, covering the work under the wings of the cherubim.</p>
+        <div class="acts"><a class="btn" target="_blank" rel="noopener" href="https://www.wingsofthecherubim.org/teachings/faith-scroll">Read it in the Faith Scroll</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GATHER -->
+  <section class="page" id="p-gather" aria-label="Gather">
+    <h2>Gather</h2>
+    <p class="lead">Join a seminar, serve in outreach, or talk with the community.</p>
+    <div class="stack">
+      <div class="row">
+        <h3>Seminars and live teachings</h3>
+        <p>See the schedule and register for the Zoom sessions.</p>
+        <div class="acts">
+          <a class="btn pri" target="_blank" rel="noopener" href="https://www.wingsofthecherubim.org/seminars#schedule">View schedule</a>
+          <a class="btn" target="_blank" rel="noopener" href="https://www.wingsofthecherubim.org/seminars#register-now">Register</a>
+        </div>
+      </div>
+      <div class="row">
+        <h3>The Evangelism Outreach Mombasa</h3>
+        <p>Saturday market evangelism and Sunday after-service events. Five prayer warriors are being called from each church.</p>
+        <div class="acts">
+          <a class="btn pri" href="mailto:wingsofthecherubim01@gmail.com?subject=Prayer%20Warrior%20Sign-up%20(TEOM)&body=Name%3A%0AChurch%3A%0APhone%3A">Sign up as prayer warrior</a>
+          <a class="btn" target="_blank" rel="noopener" href="https://www.wingsofthecherubim.org/outreach">Outreach hub</a>
+        </div>
+      </div>
+      <div class="row">
+        <h3>WhatsApp community</h3>
+        <p>Prayer groups and discussion with fellow seekers.</p>
+        <div class="acts"><a class="btn" target="_blank" rel="noopener" href="https://wa.me/254103591141?text=Hello%20Wings%20of%20the%20Cherubim">Join the group</a></div>
+      </div>
+    </div>
+    <h2 style="font-size:22px">Where the wings are landing</h2>
+    <div class="places">
+      <div class="place">London<span>Outreach</span></div>
+      <div class="place">Manhattan<span>Outreach mission</span></div>
+      <div class="place">Mombasa<span>TEOM outreach</span></div>
+      <div class="place">Haiti<span>Prophetic witness</span></div>
+    </div>
+    <h2 style="font-size:22px">Contact</h2>
+    <div class="acts" style="margin-top:10px">
+      <a class="btn" href="mailto:wingsofthecherubim01@gmail.com">Email</a>
+      <a class="btn" href="tel:+254793665764">Call</a>
+      <a class="btn" target="_blank" rel="noopener" href="https://www.wingsofthecherubim.org/give">Give</a>
+      <a class="btn" target="_blank" rel="noopener" href="https://www.wingsofthecherubim.org">Website</a>
+    </div>
+  </section>
+</div>
+
+<nav class="tabs" aria-label="Main">
+  <div class="in">
+    <button data-tab="light" aria-current="page"><svg viewBox="0 0 24 24"><path d="M12 3c2 3 3 4.5 3 6.5a3 3 0 0 1-6 0C9 7.500 10 6 12 3z"/><path d="M12 12.500V21M8 21h8"/></svg>Light</button>
+    <button data-tab="scrolls"><svg viewBox="0 0 24 24"><path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4z"/><path d="M9 9h7M9 13h7"/></svg>Scrolls</button>
+    <button data-tab="road"><svg viewBox="0 0 24 24"><path d="M4 20c4-1 4-6 8-7s4-6 8-9"/><circle cx="20" cy="4" r="1.500"/></svg>Road</button>
+    <button data-tab="pray"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.500-7-10a4 4 0 0 1 7-2.500A4 4 0 0 1 19 11c0 5.500-7 10-7 10z"/></svg>Pray</button>
+    <button data-tab="gather"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.500"/><path d="M3 20c0-3.500 2.500-6 6-6s6 2.500 6 6M15 14.500c3 0 6 1.500 6 5.500"/></svg>Gather</button>
+  </div>
+</nav>
+
+<script>
+(function(){
+  var SITE='https://www.wingsofthecherubim.org';
+  // safe per-device storage
+  function load(k,def){try{var v=localStorage.getItem(k);return v?JSON.parse(v):def}catch(e){return def}}
+  function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+  /* ---------- tabs ---------- */
+  var tabs=document.querySelectorAll('nav.tabs button');
+  function show(name){
+    document.querySelectorAll('section.page').forEach(function(s){s.classList.toggle('on',s.id==='p-'+name)});
+    tabs.forEach(function(b){if(b.dataset.tab===name)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
+    window.scrollTo(0,0);
+    try{history.replaceState(null,'','#'+name)}catch(e){}
+  }
+  tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab)})});
+  var h=(location.hash||'').slice(1);
+  if(['light','scrolls','road','pray','gather'].indexOf(h)>-1)show(h);
+
+  /* ---------- menorah ---------- */
+  var lamps=[
+    {n:'The Spirit of the LORD',c:'--l1',d:'The fullness of God, His oneness and His threefold being, shown as the central shaft.'},
+    {n:'Wisdom',c:'--l2',d:'Seeing life the way God sees it, and choosing by it.'},
+    {n:'Understanding',c:'--l3',d:'Discerning what is true beneath what appears.'},
+    {n:'Counsel',c:'--l4',d:'God\u2019s guidance for the way ahead, given to those who ask.'},
+    {n:'Might',c:'--l5',d:'Strength that comes from the Spirit, not from human effort.'},
+    {n:'Knowledge',c:'--l6',d:'Knowing God Himself, not only knowing about Him.'},
+    {n:'Fear of the LORD',c:'--l7',d:'Reverence that turns a person toward life.'}
+  ];
+  // visual order left to right; center lamp (index 3) is the Spirit of the LORD
+  var order=[1,2,3,0,4,5,6];
+  // map visual slot -> lamp index; slot 3 is the center
+  var order=[1,2,3,0,4,5,6];
+  var colors=['--l1','--l2','--l3','--l4','--l5','--l6','--l7'];
+  var NS='http://www.w3.org/2000/svg';
+  var svg=document.getElementById('menorah');
+  function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+  var xs=[28,72,116,160,204,248,292], yend=[176,170,164,0,164,170,176];
+  // stem and base
+  el('path',{d:'M160 78 V196',class:'arm'},svg);
+  el('path',{d:'M120 206 H200',class:'arm','stroke-width':'5'},svg);
+  el('path',{d:'M140 196 H180',class:'arm','stroke-width':'4'},svg);
+  // arms
+  [0,1,2,4,5,6].forEach(function(i){
+    el('path',{d:'M'+xs[i]+' 90 V128 Q'+xs[i]+' '+yend[i]+' 160 '+yend[i],class:'arm'},svg);
+  });
+  var lit={};
+  var litCount=0;
+  var reading=document.getElementById('reading');
+  var countEl=document.getElementById('count');
+  var order2=[0,1,2,3,4,5,6]; // slot -> lamp: slot i holds lamp data below
+  // lamp data per slot: left 3 = Wisdom, Understanding, Counsel; center = LORD; right = Might, Knowledge, Fear
+  var slotLamp=[lamps[1],lamps[2],lamps[3],lamps[0],lamps[4],lamps[5],lamps[6]];
+  var slotColor=['--l2','--l3','--l4','--l1','--l5','--l6','--l7'];
+  var lampEls=[];
+  xs.forEach(function(x,i){
+    var g=el('g',{class:'lamp',tabindex:'0',role:'button','aria-pressed':'false','aria-label':slotLamp[i].n,style:'color:var('+slotColor[i]+')'},svg);
+    el('circle',{class:'glow',cx:x,cy:66,r:30,fill:'currentColor'},g);
+    el('path',{class:'cup',d:'M'+(x-10)+' 82 L'+(x-7)+' 92 H'+(x+7)+' L'+(x+10)+' 82 Z'},g);
+    el('path',{class:'flame',d:'M'+x+' 48 C'+(x+10)+' 60 '+(x+8)+' 78 '+x+' 80 C'+(x-8)+' 78 '+(x-10)+' 60 '+x+' 48 Z',fill:'currentColor'},g);
+    el('rect',{class:'hit',x:x-22,y:36,width:44,height:62},g);
+    function tap(){
+      var on=!lit[i];lit[i]=on;
+      g.classList.toggle('lit',on);g.setAttribute('aria-pressed',on?'true':'false');
+      litCount+=on?1:-1;
+      countEl.textContent=litCount+' of 7 lit';
+      if(litCount===7){
+        svg.classList.add('whole');
+        reading.innerHTML='';
+        var t=document.createElement('div');t.className='t';t.textContent='One light';
+        var v=document.createElement('div');v.className='v';v.textContent='Revelation 4:5';
+        var d=document.createElement('div');d.className='d';d.textContent='Refracted, the light shows seven colors. United, it is pure light ascending from God.';
+        reading.appendChild(t);reading.appendChild(v);reading.appendChild(d);
+      }else{
+        svg.classList.remove('whole');
+        if(on)describe(i);
+        else{reading.innerHTML='';var dd=document.createElement('div');dd.className='d';dd.textContent=litCount?'Keep going. Light the remaining lamps.':'Start with the center lamp, or any of the seven.';reading.appendChild(dd)}
+      }
+    }
+    g.addEventListener('click',tap);
+    g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();tap()}});
+    lampEls.push(g);
+  });
+  function describe(i){
+    var L=slotLamp[i];
+    reading.innerHTML='';
+    var t=document.createElement('div');t.className='t';t.textContent=L.n;
+    var v=document.createElement('div');v.className='v';v.textContent='Isaiah 11:2';
+    var d=document.createElement('div');d.className='d';d.textContent=L.d;
+    reading.appendChild(t);reading.appendChild(v);reading.appendChild(d);
+  }
+
+  /* ---------- scrolls ---------- */
+  var scrolls=[
+    {id:'creation',k:'Genesis',t:'Creation',d:'The first command: let there be light. Creation, vibration, sound, and divine manifestation.'},
+    {id:'divine-light',k:'Foundation',t:'Divine Light',d:'God as the source of all light, both physical and spiritual.'},
+    {id:'menorah-mysteries',k:'Revelation',t:'Menorah Mysteries',d:'The seven-branched lampstand and the divine structure and order it reveals.'},
+    {id:'faith-scroll',k:'Faith',t:'Faith Scroll',d:'Prophecy, nations, spiritual revelation, and biblical alignment.'},
+    {id:'spiritual-warfare',k:'Wisdom',t:'Spiritual Warfare',d:'The armor of God, discernment, and standing firm as deception increases.'}
+  ];
+  var readSet=load('wotc_read',{}), saved=load('wotc_saved',{});
+  var list=document.getElementById('scrollList');
+  function renderScrolls(){
+    list.innerHTML='';
+    var n=0;
+    scrolls.forEach(function(s){
+      if(readSet[s.id])n++;
+      var r=document.createElement('div');r.className='row';
+      var k=document.createElement('div');k.className='k';k.textContent=s.k;
+      var h3=document.createElement('h3');h3.textContent=s.t;
+      var p=document.createElement('p');p.textContent=s.d;
+      var a=document.createElement('div');a.className='acts';
+      var open=document.createElement('a');open.className='btn pri';open.target='_blank';open.rel='noopener';open.href=SITE+'/teachings/'+s.id;open.textContent='Read';
+      var done=document.createElement('button');done.className='btn done';done.type='button';done.setAttribute('aria-pressed',readSet[s.id]?'true':'false');done.textContent=readSet[s.id]?'Read':'Mark as read';
+      done.addEventListener('click',function(){readSet[s.id]=!readSet[s.id];save('wotc_read',readSet);renderScrolls()});
+      var sv=document.createElement('button');sv.className='btn';sv.type='button';sv.setAttribute('aria-pressed',saved[s.id]?'true':'false');sv.textContent=saved[s.id]?'Saved':'Save';
+      sv.addEventListener('click',function(){saved[s.id]=!saved[s.id];save('wotc_saved',saved);renderScrolls()});
+      a.appendChild(open);a.appendChild(done);a.appendChild(sv);
+      [k,h3,p,a].forEach(function(e){r.appendChild(e)});
+      list.appendChild(r);
+    });
+    document.getElementById('barfill').style.width=(n/scrolls.length*100)+'%';
+    document.getElementById('bar').setAttribute('aria-valuenow',n);
+    document.getElementById('barlabel').textContent=n+' of '+scrolls.length+' scrolls read';
+  }
+  renderScrolls();
+
+  /* ---------- road ---------- */
+  var stops=[
+    {g:'The Promise',t:'A covenant to a people',r:'Genesis 12:1-3 · 17:7',d:'God calls a people to Himself and binds Himself to them by an everlasting covenant. It is the first thread in a plan that reaches to the return of Christ.'},
+    {g:'The Warning',t:'Scattered, and gathered again',r:'Ezekiel 36:24 · Isaiah 11:11-12',d:'The prophets speak of scattering among the nations, and just as plainly of a second gathering back to the land in the last days.'},
+    {g:'The Rebirth',t:'A nation reborn',r:'Isaiah 66:8',d:'Isaiah asks whether a nation can be born in a day. In 1948, after nearly two thousand years, one was. Many teach this as a clear marker for this generation.'},
+    {g:'The Signs',t:'Wars, knowledge, and speed',r:'Matthew 24:6-8 · Daniel 12:4',d:'Wars and rumors of wars, with knowledge and travel increasing as never before. These signs are given to prepare us, not to alarm us.'},
+    {g:'The Days of Noah',t:'Normalized departure from God',r:'Matthew 24:37-39',d:'Life carries on as though nothing were coming, even as the hour draws near. The Lord Himself named this pattern as a mark of His return.'},
+    {g:'The Commission',t:'The gospel to every nation',r:'Matthew 24:14',d:'The gospel of the kingdom is to be preached in all the world, and then the end comes. Outreach is the appointed condition of the last days.'},
+    {g:'The Blessed Hope',t:'Looking for His appearing',r:'Titus 2:13 · Revelation 22:20',d:'Every scroll, outreach, and testimony points to one hope: even so, come, Lord Jesus.'}
+  ];
+  var road=document.getElementById('road');
+  stops.forEach(function(s,i){
+    var d=document.createElement('div');d.className='stop';
+    var b=document.createElement('button');b.type='button';b.setAttribute('aria-expanded','false');
+    var tag=document.createElement('div');tag.className='tag';tag.textContent=s.g;
+    var h=document.createElement('h3');h.textContent=s.t;
+    var r=document.createElement('div');r.className='ref';r.textContent=s.r;
+    var m=document.createElement('p');m.className='more';m.textContent=s.d;
+    b.appendChild(tag);b.appendChild(h);b.appendChild(r);b.appendChild(m);
+    b.addEventListener('click',function(){var o=d.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false')});
+    d.appendChild(b);road.appendChild(d);
+  });
+
+  /* ---------- prayer list ---------- */
+  var prayers=load('wotc_prayers',[]);
+  var plist=document.getElementById('plist'), pempty=document.getElementById('pempty');
+  function renderP(){
+    plist.innerHTML='';
+    pempty.style.display=prayers.length?'none':'block';
+    prayers.forEach(function(p,i){
+      var li=document.createElement('li');if(p.a)li.className='ans';
+      var cb=document.createElement('input');cb.type='checkbox';cb.checked=!!p.a;cb.setAttribute('aria-label','Mark answered');cb.style.width='22px';cb.style.height='22px';cb.style.accentColor='#d2a94c';
+      cb.addEventListener('change',function(){prayers[i].a=cb.checked;save('wotc_prayers',prayers);renderP()});
+      var sp=document.createElement('span');sp.textContent=p.t;
+      var del=document.createElement('button');del.type='button';del.setAttribute('aria-label','Delete prayer');del.textContent='\u2715';
+      del.addEventListener('click',function(){prayers.splice(i,1);save('wotc_prayers',prayers);renderP()});
+      li.appendChild(cb);li.appendChild(sp);li.appendChild(del);plist.appendChild(li);
+    });
+  }
+  document.getElementById('addForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var inp=document.getElementById('prayerInput');var v=inp.value.trim();
+    if(!v)return;
+    prayers.unshift({t:v,a:false});save('wotc_prayers',prayers);inp.value='';renderP();
+  });
+  renderP();
+})();
+if("serviceWorker" in navigator&&location.protocol==="https:"){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
+</script>
+</body>
+</html>

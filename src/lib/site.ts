@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: "Wings of the Cherubim",
-  tagline: "Revealing truth. Building community. Transforming lives.",
+  tagline: "Global discipleship. Prophetic clarity. Kingdom impact.",
   description:
-    "A digital platform revealing deep biblical truths through the Scroll System. Explore divine light, prophecy, and redemption through Christ.",
+    "A modern ministry platform for biblical teaching, spiritual formation, and mission-driven outreach across nations.",
   founder: "Gregory Schadt",
   domain: "www.wingsofthecherubim.org",
   url: "https://www.wingsofthecherubim.org",
@@ -11,7 +11,7 @@ export const siteConfig = {
   outreachPhone: "+254-793-665-764",
   whatsappUrl:
     "https://wa.me/254103591141?text=Hello%20Wings%20of%20the%20Cherubim",
-  zoomUrl: "",
+  zoomUrl: "https://zoom.us/j/your-live-link",
 } as const;
 
 export const giving = {

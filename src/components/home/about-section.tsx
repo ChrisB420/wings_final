@@ -4,27 +4,27 @@ import { Card, CardContent } from "@/components/ui/card";
 const features = [
   {
     icon: BookOpen,
-    title: "Teaching Environment",
+    title: "Biblical Teaching",
     description:
-      "A structured space for learning deep biblical truths through revelation and understanding.",
+      "Deep, scripture-rooted teaching that helps believers understand truth with clarity and confidence.",
   },
   {
     icon: Sparkles,
-    title: "Spiritual Experience",
+    title: "Spiritual Formation",
     description:
-      "Content designed to be experienced — combining visual storytelling with prophetic insight.",
+      "An immersive experience designed to awaken perspective, prayer, and personal transformation.",
   },
   {
     icon: Users,
-    title: "Mission Platform",
+    title: "Community Discipleship",
     description:
-      "Connecting to real-world seminars, outreach programs, and community building.",
+      "A connected network of people growing together through teaching, prayer, and shared mission.",
   },
   {
     icon: Heart,
-    title: "Movement Hub",
+    title: "Kingdom Impact",
     description:
-      "More than a website — a gathering place for those seeking truth and transformation.",
+      "A vision that moves beyond information into action, outreach, and practical ministry.",
   },
 ];
 
@@ -39,21 +39,20 @@ export function AboutSection() {
               More Than a Website — <span className="text-primary">A Movement</span>
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              Wings of the Cherubim is a spiritual teaching platform and digital mission hub built
-              to reveal and teach deep biblical truths. It is designed to guide people into
-              understanding spiritual truths about God, light, creation, prophecy, and redemption
-              through Christ.
+              Wings of the Cherubim is a modern spiritual ministry platform built to reveal biblical
+              truth, strengthen discipleship, and inspire believers to live with greater clarity,
+              conviction, and compassion.
             </p>
             <p className="mt-4 leading-relaxed text-muted-foreground">
-              The teachings are influenced by biblical scripture and prophetic insights, creating
-              an immersive experience that combines deep teaching with visual storytelling and
-              symbolic imagery.
+              Through scripture, prophetic insight, and practical teaching, the ministry creates a
+              space where revelation becomes formation — helping people encounter God, understand
+              His purposes, and participate in His mission across nations.
             </p>
             <div className="mt-10 grid grid-cols-3 gap-6">
               {[
-                ["12+", "Sacred Scrolls"],
-                ["500+", "Community Members"],
-                ["24", "Nations Reached"],
+                ["12+", "Teaching Scrolls"],
+                ["500+", "Believers Engaged"],
+                ["24", "Nations Impacted"],
               ].map(([stat, label]) => (
                 <div key={label}>
                   <div className="font-serif text-3xl font-semibold text-primary">{stat}</div>

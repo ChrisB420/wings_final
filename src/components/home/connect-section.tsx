@@ -8,7 +8,7 @@ import { formspree } from "@/lib/site";
 
 export function ConnectSection() {
   const [email, setEmail] = useState("");
-  const { status, submit, honeypotProps } = useFormSubmit(formspree.newsletter);
+  const { status, submit, honeypotProps, errorMessage } = useFormSubmit(formspree.newsletter);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,11 +25,11 @@ export function ConnectSection() {
               <div className="p-8 md:p-12">
                 <p className="mb-5 text-xs tracking-[0.22em] text-primary uppercase">Connect</p>
                 <h2 className="font-serif text-3xl font-semibold md:text-4xl">
-                  Begin Your <span className="text-primary">Journey</span>
+                  Stay Connected to the <span className="text-primary">Movement</span>
                 </h2>
                 <p className="mt-4 mb-8 leading-relaxed text-muted-foreground">
-                  Join our community of seekers and receive updates on new scrolls, teachings,
-                  seminars, and spiritual insights directly to your inbox.
+                  Receive updates on new teachings, live seminars, ministry reports, and prayer-led
+                  opportunities designed to help you grow in truth and purpose.
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <input {...honeypotProps} />
@@ -48,7 +48,11 @@ export function ConnectSection() {
                   >
                     {status === "submitting" ? "Subscribing…" : "Subscribe to Updates"}
                   </Button>
-                  <FormStatus status={status} successMessage="You're subscribed. Thank you!" />
+                  <FormStatus
+                    status={status}
+                    successMessage="You're subscribed. Thank you!"
+                    errorMessage={errorMessage}
+                  />
                 </form>
                 <p className="mt-4 text-xs text-muted-foreground">
                   We respect your privacy. Unsubscribe at any time.

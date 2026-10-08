@@ -10,25 +10,25 @@ const zoomUrl: string = siteConfig.zoomUrl || "/seminars#register-now";
 const activities = [
   {
     icon: Calendar,
-    title: "Spiritual Seminars",
+    title: "Teaching Seminars",
     description:
-      "Join live teaching sessions and workshops exploring the depths of biblical truth.",
+      "Join live sessions, prayer gatherings, and practical discipleship moments designed to deepen understanding.",
     cta: "View Schedule",
     href: calendarUrl,
   },
   {
     icon: MessageCircle,
-    title: "WhatsApp Community",
+    title: "Community Circle",
     description:
-      "Connect with fellow seekers in our active community discussions and prayer groups.",
+      "Connect with believers and seekers in a faith-filled space for encouragement, prayer, and shared insight.",
     cta: "Join Group",
     href: siteConfig.whatsappUrl,
   },
   {
     icon: MapPin,
-    title: "Outreach Programs",
+    title: "Mission Outreach",
     description:
-      "Participate in real-world mission work extending the message beyond the digital.",
+      "Support practical ministry and outreach efforts that bring hope, care, and the gospel into local communities.",
     cta: "Get Involved",
     href: "/outreach",
   },

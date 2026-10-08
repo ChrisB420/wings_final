@@ -9,7 +9,7 @@ import { formspree } from "@/lib/site";
 export function TestimonyForm() {
   const blank = { name: "", email: "", testimony: "", canPublish: false };
   const [form, setForm] = useState(blank);
-  const { status, submit, honeypotProps } = useFormSubmit(formspree.contact);
+  const { status, submit, honeypotProps, errorMessage } = useFormSubmit(formspree.contact);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -61,7 +61,11 @@ export function TestimonyForm() {
       <Button type="submit" disabled={status === "submitting"} className="min-h-12 w-full rounded-full">
         {status === "submitting" ? "Sending…" : "Share Testimony"}
       </Button>
-      <FormStatus status={status} successMessage="Thank you for sharing. God bless you!" />
+      <FormStatus
+        status={status}
+        successMessage="Thank you for sharing. God bless you!"
+        errorMessage={errorMessage}
+      />
     </form>
   );
 }

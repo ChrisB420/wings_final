@@ -7,7 +7,7 @@ import { formspree } from "@/lib/site";
 
 export function SeminarRegistrationForm() {
   const [email, setEmail] = useState("");
-  const { status, submit, honeypotProps } = useFormSubmit(formspree.seminar);
+  const { status, submit, honeypotProps, errorMessage } = useFormSubmit(formspree.seminar);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -32,7 +32,8 @@ export function SeminarRegistrationForm() {
       </Button>
       <FormStatus
         status={status}
-        successMessage="You're registered! Check your email for the Zoom details."
+        successMessage="Your registration has been received. We'll send the seminar details to your email."
+        errorMessage={errorMessage}
       />
     </form>
   );

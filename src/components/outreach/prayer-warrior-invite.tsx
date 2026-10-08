@@ -9,7 +9,7 @@ import { formspree, siteConfig } from "@/lib/site";
 
 export function PrayerWarriorInvite() {
   const [form, setForm] = useState({ name: "", email: "", prayer: "" });
-  const { status, submit, honeypotProps } = useFormSubmit(formspree.warriorSignup);
+  const { status, submit, honeypotProps, errorMessage } = useFormSubmit(formspree.warriorSignup);
   const update =
     (key: keyof typeof form) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -73,6 +73,7 @@ export function PrayerWarriorInvite() {
         <FormStatus
           status={status}
           successMessage="Thank you! Your prayer warrior registration has been received."
+          errorMessage={errorMessage}
         />
       </form>
       <p className="mt-6 text-sm text-muted-foreground italic">

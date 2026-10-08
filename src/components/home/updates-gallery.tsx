@@ -4,19 +4,19 @@ const updates = [
   {
     src: "/images/hero/wings-banner.jpg",
     title: "The Glory Vision",
-    text: "Revelation of light, structure, and divine alignment.",
+    text: "A fresh unveiling of light, identity, and spiritual alignment for this generation.",
     href: "/teachings",
   },
   {
     src: "/images/outreach/overseas/london-1.jpg",
     title: "Scroll Activation",
-    text: "Teachings becoming structured digital scrolls.",
+    text: "Biblical insight turned into accessible teaching resources and spiritual study tools.",
     href: "/library",
   },
   {
     src: "/images/outreach/overseas/manhattan-1.jpg",
-    title: "Outreach Movement",
-    text: "Expansion into real-world ministry and gatherings.",
+    title: "Mission Expansion",
+    text: "From local encounters to global outreach, the movement continues to multiply.",
     href: "/outreach",
   },
 ] as const;

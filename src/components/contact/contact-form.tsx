@@ -8,7 +8,7 @@ import { formspree, siteConfig } from "@/lib/site";
 
 export function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const { status, submit, honeypotProps } = useFormSubmit(formspree.contact);
+  const { status, submit, honeypotProps, errorMessage } = useFormSubmit(formspree.contact);
   const update =
     (key: keyof typeof form) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -55,7 +55,7 @@ export function ContactForm() {
       <FormStatus
         status={status}
         successMessage="Thank you — your message has been sent. We'll be in touch soon."
-        errorMessage={`Something went wrong sending your message. Please try again, or email us at ${siteConfig.email}.`}
+        errorMessage={`${errorMessage} You can also email us at ${siteConfig.email}.`}
       />
     </form>
   );
