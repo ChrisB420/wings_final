@@ -170,6 +170,7 @@ export function FaithScroll({ titleAs: Title = "h1" }: FaithScrollProps) {
           {/* Haitian Flag Revelation - Collapsible */}
           <div className="my-8 border-2 border-[#c9a24d] rounded-xl overflow-hidden">
             <button
+              id="haitian-flag-revelation"
               onClick={() => setHaitiOpen(!haitiOpen)}
               className="flex w-full items-center justify-between bg-primary-foreground p-4 text-left font-serif font-bold tracking-wide text-primary"
             >

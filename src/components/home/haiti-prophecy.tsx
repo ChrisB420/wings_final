@@ -54,7 +54,7 @@ export function HaitiProphecy() {
               appearing of Christ.
             </p>
             <a
-              href="/teachings/faith-scroll"
+              href="/#haitian-flag-revelation"
               className="inline-flex min-h-11 items-center rounded-full bg-primary px-6 font-semibold text-primary-foreground"
             >
               Read the Faith Scroll →
