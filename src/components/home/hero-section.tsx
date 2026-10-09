@@ -11,9 +11,12 @@ export function HeroSection() {
         className="absolute inset-0 scale-105 bg-[url('/images/hero/wings-banner.jpg')] bg-cover bg-center"
         aria-hidden="true"
       />
-      <div className="absolute inset-0 bg-background/78" aria-hidden="true" />
       <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(211,169,106,0.16),transparent_55%)]"
+        className="absolute inset-0 bg-gradient-to-b from-[#080d20]/55 via-background/72 to-[#080d20]/95"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_15%,rgba(150,116,255,0.28),transparent_46%),radial-gradient(ellipse_at_85%_35%,rgba(57,194,239,0.16),transparent_42%)]"
         aria-hidden="true"
       />
       <div
@@ -34,10 +37,12 @@ export function HeroSection() {
             </span>
           </div>
 
-          <h1 className="font-serif text-5xl leading-[1.02] font-semibold tracking-tight text-foreground md:text-7xl lg:text-8xl">
+          <h1 className="font-serif text-5xl leading-[1.02] font-semibold tracking-tight text-foreground drop-shadow-[0_8px_36px_rgba(0,0,0,0.48)] md:text-7xl lg:text-8xl">
             Wings of the
             <br />
-            <span className="text-primary">Cherubim</span>
+            <span className="bg-gradient-to-r from-[#d8d0ff] via-[#b5a1ff] to-[#6ce8f2] bg-clip-text text-transparent">
+              Cherubim
+            </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-foreground/78 md:text-xl">
@@ -65,7 +70,11 @@ export function HeroSection() {
         <ScrollViewer />
 
         <div className="flex flex-col justify-center gap-3 sm:flex-row">
-          <Button asChild size="lg" className="min-h-12 rounded-full px-8 shadow-[0_12px_30px_rgba(211,169,106,0.18)]">
+          <Button
+            asChild
+            size="lg"
+            className="min-h-12 rounded-full px-8 shadow-[0_12px_36px_rgba(133,107,255,0.32)]"
+          >
             <Link to="/teachings">Enter the Vision</Link>
           </Button>
           <Button

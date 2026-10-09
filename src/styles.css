@@ -2,28 +2,30 @@
 @import "tw-animate-css";
 
 :root {
-  --background: #0b0d0f;
-  --foreground: #f6f0e8;
-  --card: #15191c;
-  --card-foreground: #f6f0e8;
-  --popover: #1a1f22;
-  --popover-foreground: #f6f0e8;
-  --primary: #d3a96a;
-  --primary-foreground: #120f09;
-  --secondary: #11181a;
-  --secondary-foreground: #efe5d2;
-  --muted: #171d20;
-  --muted-foreground: #b4ada2;
-  --accent: #c9985c;
-  --accent-foreground: #120f09;
-  --destructive: #c55d4d;
-  --destructive-foreground: #f6f0e8;
-  --border: rgba(245, 239, 230, 0.11);
-  --input: rgba(245, 239, 230, 0.08);
-  --ring: #d3a96a;
+  --background: #080d20;
+  --foreground: #f3f2ff;
+  --card: #111a35;
+  --card-foreground: #f3f2ff;
+  --popover: #131e3d;
+  --popover-foreground: #f3f2ff;
+  --primary: #b8a5ff;
+  --primary-foreground: #11102b;
+  --secondary: #101a34;
+  --secondary-foreground: #e8eaff;
+  --muted: #192544;
+  --muted-foreground: #b4c0e0;
+  --accent: #63dff2;
+  --accent-foreground: #081728;
+  --destructive: #e5768d;
+  --destructive-foreground: #fff4f6;
+  --border: rgba(177, 190, 255, 0.16);
+  --input: rgba(177, 190, 255, 0.12);
+  --ring: #63dff2;
   --radius: 0.85rem;
-  --shadow-border: 0 0 0 1px rgba(245, 239, 230, 0.08);
-  --shadow-border-hover: 0 0 0 1px rgba(211, 169, 106, 0.4), 0 18px 45px rgba(17, 24, 26, 0.45);
+  --shadow-border: 0 0 0 1px rgba(177, 190, 255, 0.13), 0 14px 40px rgba(4, 8, 26, 0.18);
+  --shadow-border-hover:
+    0 0 0 1px rgba(184, 165, 255, 0.5), 0 20px 55px rgba(4, 8, 26, 0.38),
+    0 0 36px rgba(104, 87, 214, 0.14);
 }
 
 @theme inline {
@@ -70,8 +72,9 @@
   body {
     @apply bg-background text-foreground font-sans;
     background-image:
-      radial-gradient(circle at top, rgba(211, 169, 106, 0.08), transparent 35%),
-      linear-gradient(180deg, #0b0d0f 0%, #101416 100%);
+      radial-gradient(ellipse at 18% 0%, rgba(104, 87, 214, 0.16), transparent 38%),
+      radial-gradient(ellipse at 88% 24%, rgba(36, 143, 202, 0.09), transparent 34%),
+      linear-gradient(180deg, #080d20 0%, #0b1229 100%);
     position: relative;
   }
 
@@ -80,14 +83,14 @@
     position: fixed;
     inset: 0;
     pointer-events: none;
-    background-image: radial-gradient(rgba(255,255,255,0.04) 0.7px, transparent 0.7px);
-    background-size: 18px 18px;
-    mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
-    opacity: 0.28;
+    background-image: radial-gradient(rgba(190, 202, 255, 0.11) 0.65px, transparent 0.65px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse at center, black 28%, transparent 82%);
+    opacity: 0.2;
   }
 
   ::selection {
-    background: rgba(211, 169, 106, 0.22);
+    background: rgba(184, 165, 255, 0.32);
     color: var(--foreground);
   }
 
@@ -107,7 +110,10 @@
   }
 
   a {
-    transition: color 180ms ease, opacity 180ms ease, transform 180ms ease;
+    transition:
+      color 180ms ease,
+      opacity 180ms ease,
+      transform 180ms ease;
   }
 
   img.media {

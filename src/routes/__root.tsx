@@ -12,7 +12,7 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: `${siteConfig.name} | Spiritual Teaching Platform` },
       { name: "description", content: siteConfig.description },
-      { name: "theme-color", content: "#0c0b09" },
+      { name: "theme-color", content: "#080d20" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },

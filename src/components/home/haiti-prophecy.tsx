@@ -1,3 +1,5 @@
+import { HaitianFlagRevelation } from "@/components/teachings/haitian-flag-revelation";
+
 /**
  * "Haiti — A Prophetic Witness"
  *
@@ -10,14 +12,16 @@ export function HaitiProphecy() {
     <section className="border-y border-border bg-secondary/40 px-4 py-24 md:px-6 md:py-32">
       <div className="mx-auto max-w-5xl">
         <div className="mb-12 text-center">
-          <p className="mb-4 text-xs tracking-[0.22em] text-primary uppercase">A Prophetic Witness</p>
+          <p className="mb-4 text-xs tracking-[0.22em] text-primary uppercase">
+            A Prophetic Witness
+          </p>
           <h2 className="font-serif text-3xl font-semibold md:text-5xl">
             The Haitian Flag <span className="text-primary">Revelation</span>
           </h2>
           <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-muted-foreground">
-            Held in concert with the return of Christ — a sign woven into the colors, the palm,
-            and the word above it: &ldquo;Not by might, nor by power, but by my Spirit, says the
-            LORD of hosts&rdquo; (Zechariah 4:6).
+            Held in concert with the return of Christ — a sign woven into the colors, the palm, and
+            the word above it: &ldquo;Not by might, nor by power, but by my Spirit, says the LORD of
+            hosts&rdquo; (Zechariah 4:6).
           </p>
         </div>
 
@@ -42,16 +46,16 @@ export function HaitiProphecy() {
             <h3 className="mb-3 font-serif text-xl text-primary">Zechariah 4</h3>
             <p className="mb-4 leading-relaxed text-muted-foreground">
               The coat of arms carries its own quiet prophecy — the palm standing tall and
-              untouched, cannons laid down, chains broken at its feet, and the people&apos;s
-              motto beneath it: <span className="italic">L&rsquo;Union Fait La Force</span> —
-              &ldquo;In unity there is strength.&rdquo;
+              untouched, cannons laid down, chains broken at its feet, and the people&apos;s motto
+              beneath it: <span className="italic">L&rsquo;Union Fait La Force</span> — &ldquo;In
+              unity there is strength.&rdquo;
             </p>
             <p className="mb-6 leading-relaxed text-muted-foreground">
               It is the same word spoken to Zerubbabel as he rebuilt the temple against every
-              obstacle: the mountain of opposition would become a plain, not by human strength,
-              but by the Spirit of the Lord. We hold this flag, and this word, as part of the
-              watching and readiness this ministry is called to — for the nations, and for the
-              appearing of Christ.
+              obstacle: the mountain of opposition would become a plain, not by human strength, but
+              by the Spirit of the Lord. We hold this flag, and this word, as part of the watching
+              and readiness this ministry is called to — for the nations, and for the appearing of
+              Christ.
             </p>
             <a
               href="/#haitian-flag-revelation"
@@ -61,6 +65,8 @@ export function HaitiProphecy() {
             </a>
           </div>
         </div>
+
+        <HaitianFlagRevelation />
       </div>
     </section>
   );
