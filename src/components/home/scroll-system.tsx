@@ -1,33 +1,52 @@
 import { Link } from "@tanstack/react-router";
-import { Scroll } from "lucide-react";
+import { ArrowRight, Scroll } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { listedTeachings, teachingHref, type Teaching } from "@/lib/content/teachings";
 
-function ScrollCard({ teaching }: { teaching: Teaching }) {
+function ScrollCard({ teaching, index }: { teaching: Teaching; index: number }) {
   const comingSoon = teaching.status === "coming-soon";
   const card = (
     <Card
-      className={`h-full rounded-2xl bg-card shadow-[var(--shadow-border)] transition-[box-shadow] duration-200 ${
-        comingSoon ? "opacity-60" : "group-hover:shadow-[var(--shadow-border-hover)]"
+      className={`group relative h-full overflow-hidden rounded-2xl border-border/80 bg-card/80 shadow-[var(--shadow-border)] transition-[transform,border-color,box-shadow] duration-300 ${
+        comingSoon
+          ? "opacity-70"
+          : "hover:-translate-y-1 hover:border-primary/40 hover:shadow-[var(--shadow-border-hover)]"
       }`}
     >
-      <CardContent className="p-6">
-        <div className="flex items-start gap-4">
-          <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-            <teaching.icon className="size-6 text-primary" />
+      <div
+        className="pointer-events-none absolute -right-10 -top-12 size-40 rounded-full bg-primary/5 blur-2xl transition-colors duration-300 group-hover:bg-primary/10"
+        aria-hidden="true"
+      />
+      <CardContent className="relative flex h-full flex-col p-6">
+        <div className="flex items-start justify-between gap-4">
+          <span className="flex size-12 items-center justify-center rounded-xl border border-primary/15 bg-primary/10">
+            <teaching.icon aria-hidden="true" className="size-5 text-primary" />
+          </span>
+          <span className="pt-1 font-serif text-sm tracking-[0.12em] text-muted-foreground/70">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </div>
+        <div className="mt-6 flex flex-1 flex-col">
+          <div className="flex items-center gap-2">
+            <span className="text-[0.68rem] tracking-[0.2em] text-primary uppercase">
+              {teaching.level}
+            </span>
+            {comingSoon && (
+              <span className="rounded-full border border-border px-2 py-0.5 text-[0.6rem] tracking-wider text-muted-foreground uppercase">
+                Coming soon
+              </span>
+            )}
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs tracking-wider text-primary uppercase">{teaching.level}</span>
-              {comingSoon && (
-                <span className="rounded-full border border-border px-2 py-0.5 text-[10px] tracking-wider text-muted-foreground uppercase">
-                  Coming soon
-                </span>
-              )}
-            </div>
-            <h3 className="mt-1 mb-2 font-serif text-xl font-semibold">{teaching.title}</h3>
-            <p className="text-sm text-muted-foreground">{teaching.summary ?? teaching.description}</p>
-          </div>
+          <h3 className="mt-2 font-serif text-xl font-semibold tracking-tight group-hover:text-primary">
+            {teaching.title}
+          </h3>
+          <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+            {teaching.summary ?? teaching.description}
+          </p>
+          <span className="mt-6 inline-flex items-center gap-2 text-xs font-medium tracking-[0.14em] text-foreground/80 uppercase">
+            {comingSoon ? "In preparation" : "Open this scroll"}
+            {!comingSoon && <ArrowRight aria-hidden="true" className="size-4" />}
+          </span>
         </div>
       </CardContent>
     </Card>
@@ -53,15 +72,16 @@ export function ScrollSystem() {
             The Scroll System
           </p>
           <h2 className="font-serif text-4xl font-semibold md:text-5xl">
-            Revelations Organized as <span className="text-primary">Scrolls</span>
+            The Eternal Hope of <span className="text-primary">Revival</span>
           </h2>
-          <p className="mt-6 text-lg text-muted-foreground">
-            Each scroll is a guided teaching journey — not just a page.
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+            Explore the new creation, prophetic restoration, and faith for the days ahead through
+            this collection of guided teachings.
           </p>
         </div>
-        <div className="grid gap-6 md:grid-cols-2">
-          {listedTeachings.map((teaching) => (
-            <ScrollCard key={teaching.slug} teaching={teaching} />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {listedTeachings.map((teaching, index) => (
+            <ScrollCard key={teaching.slug} teaching={teaching} index={index} />
           ))}
         </div>
         <div className="mt-12 text-center">
@@ -69,7 +89,7 @@ export function ScrollSystem() {
             to="/teachings"
             className="text-sm tracking-[0.16em] text-primary uppercase hover:underline"
           >
-            Begin your journey through the scrolls
+            Explore all teachings
           </Link>
         </div>
       </div>

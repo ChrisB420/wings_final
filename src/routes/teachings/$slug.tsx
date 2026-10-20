@@ -6,6 +6,7 @@ import { FaithScroll } from "@/components/teachings/faith-scroll";
 import { MenorahMysteries } from "@/components/teachings/menorah-mysteries";
 import { NuclearProphecy } from "@/components/teachings/nuclear-prophecy";
 import { ScrollNavigation } from "@/components/teachings/scroll-navigation";
+import { ScrollReader } from "@/components/teachings/scroll-reader";
 import { SpiritualWarfare } from "@/components/teachings/spiritual-warfare";
 import { teachings } from "@/lib/content/teachings";
 import { siteConfig } from "@/lib/site";
@@ -54,8 +55,13 @@ export const Route = createFileRoute("/teachings/$slug")({
     const info = meta[slug];
     return {
       meta: [
-        { title: `${info?.title ?? "Teaching"} | ${siteConfig.name}` },
-        { name: "description", content: info?.description ?? siteConfig.description },
+        {
+          title: `${info?.title ?? loaderData?.teaching.title ?? "Teaching"} | ${siteConfig.name}`,
+        },
+        {
+          name: "description",
+          content: info?.description ?? loaderData?.teaching.description ?? siteConfig.description,
+        },
       ],
     };
   },
@@ -67,52 +73,42 @@ function TeachingPage() {
   const slug = teaching.slug;
   const info = meta[slug];
 
-  if (slug === "creation") {
-    return (
-      <SiteShell>
-        <CreationScroll />
-        <div className="mx-auto max-w-5xl px-6 pb-20">
-          <ScrollNavigation slug="creation" />
-        </div>
-      </SiteShell>
-    );
-  }
-
-  if (slug === "faith-scroll") {
-    return (
-      <SiteShell>
-        <FaithScroll />
-        <div className="px-4 pb-16">
-          <div className="mx-auto max-w-4xl">
-            <ScrollNavigation slug="faith-scroll" />
-          </div>
-        </div>
-      </SiteShell>
-    );
-  }
-
-  if (slug === "nuclear") {
-    return (
-      <SiteShell>
-        <NuclearProphecy />
-      </SiteShell>
-    );
-  }
-
   return (
     <SiteShell>
-      <section className="px-4 pt-16 pb-12 text-center md:px-6">
-        <h1 className="font-serif text-4xl font-semibold md:text-6xl">{info?.title}</h1>
-        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">{info?.description}</p>
-      </section>
-      <section className="px-4 pb-24 md:px-6">
-        <div className="mx-auto max-w-4xl">
-          {slug === "divine-light" && <DivineLight />}
-          {slug === "menorah-mysteries" && <MenorahMysteries />}
-          {slug === "spiritual-warfare" && <SpiritualWarfare />}
-          <ScrollNavigation slug={slug} />
-        </div>
-      </section>
+      <ScrollReader
+        kicker={teaching.level}
+        title={info?.title ?? teaching.title}
+        description={info?.description ?? teaching.description}
+      >
+        {slug === "creation" ? (
+          <CreationScroll />
+        ) : slug === "faith-scroll" ? (
+          <FaithScroll showTitle={false} />
+        ) : slug === "nuclear" ? (
+          <NuclearProphecy />
+        ) : slug === "divine-light" ? (
+          <DivineLight />
+        ) : slug === "menorah-mysteries" ? (
+          <MenorahMysteries />
+        ) : slug === "spiritual-warfare" ? (
+          <SpiritualWarfare />
+        ) : (
+          <article className="leading-relaxed text-muted-foreground">
+            <p className="text-xs tracking-[0.18em] text-primary uppercase">Teaching overview</p>
+            <h2 className="mt-3 font-serif text-2xl font-semibold text-foreground">
+              {teaching.title}: key theme
+            </h2>
+            <p className="mt-4">{teaching.description}</p>
+          </article>
+        )}
+      </ScrollReader>
+      {slug !== "nuclear" && (
+        <section className="px-4 pb-16 md:px-6">
+          <div className="mx-auto max-w-5xl">
+            <ScrollNavigation slug={slug} />
+          </div>
+        </section>
+      )}
     </SiteShell>
   );
 }
