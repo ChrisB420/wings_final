@@ -23,7 +23,7 @@ export const Route = createRootRoute({
         href: "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap",
       },
       { rel: "stylesheet", href: appCss },
-      { rel: "manifest", href: "/__grok/manifest.webmanifest" },
+    
       { rel: "apple-touch-icon", href: "/brand/app-icon.png" },
     ],
   }),
